@@ -2,6 +2,7 @@ const { PermissionsBitField } = require('discord.js')
 
 module.exports = {
     name: 'delete',
+    description: 'Apaga uma quantidade de mensagens do chat (Admin).',
     async execute(message, args) {
         if (!message.member.permissions.has(PermissionsBitField.Flags.ManageMessages)) {
             return message.reply('Você não tem permissão para limpar mensagens.')

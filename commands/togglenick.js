@@ -2,6 +2,7 @@ const { PermissionsBitField } = require('discord.js')
 
 module.exports = {
     name: 'togglenicks',
+    description: 'Ativa ou Desativa a mudança automática de apelidos (Admin)',
     async execute(message, args) {
         if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
             return message.reply('Você não tem permissão pra alterar configuração do bot.')

@@ -133,6 +133,7 @@ const cooldowns = new Set()
 
 module.exports = {
     name: 'convidar',
+    description: 'Convida alguém aleatório para um rolê (lanches, jogos, etc).',
     async execute(message, args) {
         if (cooldowns.has(message.author.id)) {
             return message.reply(`Calma ai! Espere ${COOLDOWN_SECONDS} segundos. ⏰`)

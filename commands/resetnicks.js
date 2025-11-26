@@ -2,6 +2,7 @@ const { PermissionsBitField } = require('discord.js')
 
 module.exports = {
     name: 'resetnicks',
+    description: 'Volta o apelido de todo mundo ao normal (Admin).',
     async execute(message, args) {
         if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
             return message.reply('Você não tem permissão pra executar esse comando.')
