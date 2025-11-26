@@ -20,7 +20,7 @@ module.exports = {
 
             embed.addFields({
                 name: `🔷${PREFIX}${cmd.name}`,
-                value: `*${desc}`,
+                value: `*${desc}*`,
                 inline: false
             })
         })
