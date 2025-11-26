@@ -5,7 +5,7 @@ module.exports = {
     description: 'Ativa ou Desativa a mudança automática de apelidos (Admin)',
     async execute(message, args) {
         if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
-            return message.reply('Você não tem permissão pra alterar configuração do bot.')
+            return message.reply('❌ Você não tem permissão pra alterar configuração do bot.')
         }
 
         const client = message.client

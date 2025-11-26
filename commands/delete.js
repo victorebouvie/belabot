@@ -5,7 +5,7 @@ module.exports = {
     description: 'Apaga uma quantidade de mensagens do chat (Admin).',
     async execute(message, args) {
         if (!message.member.permissions.has(PermissionsBitField.Flags.ManageMessages)) {
-            return message.reply('Você não tem permissão para limpar mensagens.')
+            return message.reply('❌ Você não tem permissão para limpar mensagens.')
         }
 
         const amount = parseInt(args[0])

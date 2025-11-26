@@ -4,4 +4,5 @@ module.exports = {
     PREFIX: '!',
     CHECK_INTERVAL: 10 * 60 * 1000, // 10 Minutos
     COOLDOWN_SECONDS: 5,
+    LOG_CHANNEL_ID: '1443293775173783622',
 }
