@@ -1,0 +1,7 @@
+module.exports = {
+    GUILD_ID: '1136378782366834818',
+    NICKNAME: 'Melby',
+    PREFIX: '!',
+    CHECK_INTERVAL: 10 * 60 * 1000, // 10 Minutos
+    COOLDOWN_SECONDS: 5,
+}
