@@ -12,7 +12,7 @@ module.exports = {
 
         const embed = new EmbedBuilder()
             .setColor('#FF0000')
-            .setTittle('🗑️ Mensagem Apagada')
+            .setTitle('🗑️ Mensagem Apagada')
             .addFields(
                 { name: 'Autor', value: `${message.author ? message.author.tag : 'Desconhecido'}`, inline: true},
                 { name: 'Canal', value: `${message.channel}`, inline: true},

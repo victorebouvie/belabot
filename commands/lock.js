@@ -11,7 +11,7 @@ module.exports = {
 
         try {
             await channel.permissionOverwrites.edit(message.guild.roles.everyone, {
-                sendMessage: false
+                [PermissionsBitField.Flags.SendMessages]: false
             })
             message.channel.send('🔒 **Canal trancado!** Ninguém pode falar aqui até que seja destrancado.')
         } catch (error) {
