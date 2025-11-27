@@ -1,14 +1,18 @@
 const { EmbedBuilder, Events, AuditLogEvent } = require('discord.js')
-const { LOG_CHANNEL_ID } = require('../config')
+const { LOG_CHANNEL_ID, getGuildConfig } = require('../utils/db')
 
 module.exports = {
     name: Events.MessageDelete,
     async execute(message, client) {
         if (message.author?.bot) return
-        if (!LOG_CHANNEL_ID) return
 
-        const logChannel = client.channels.cache.get(LOG_CHANNEL_ID)
-        if (!logChannel) return console.log('Canal de Logs não encontrado.')
+        const config = getGuildConfig(message.guild.id)
+        const logChannelId = config.logChannel
+
+        if (!logChannelId) return
+
+        const logChannel = client.channels.cache.get(logChannelId)
+        if (!logChannel) return
 
         const embed = new EmbedBuilder()
             .setColor('#FF0000')

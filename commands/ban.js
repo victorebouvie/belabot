@@ -21,7 +21,7 @@ module.exports = {
 
         try {
             await member.ban({ reason: reason })
-            message.channel.send(`🚫 **${member.user.tag}** lebou BAN! Motivo: *${reason}*`)
+            message.channel.send(`🚫 **${member.user.tag}** levou BAN! Motivo: *${reason}*`)
         } catch (error) {
             console.error(error)
             message.reply('Houve um erro ao tentar banir o membro.')

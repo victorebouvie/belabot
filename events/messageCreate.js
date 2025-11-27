@@ -1,3 +1,4 @@
+const { Colors } = require('discord.js')
 const { PREFIX } = require('../config')
 
 module.exports = {
@@ -14,6 +15,22 @@ module.exports = {
 
         try {
             await command.execute(message, args)
+
+            const { getGuildConfig } = require('../utils/db')
+            const config = getGuildConfig(message.guild.id)
+            if (config.logChannel) {
+                const logChannel = client.channels.cache.get(config.logChannel)
+                if (logChannel) {
+                    const embed = {
+                        color: 0x0099ff,
+                        title: '🤖 Comando Executado',
+                        description: `**${message.author.tag}** usou: \`${message.content}\``,
+                        timestamp: new Date(),
+                        footer: { text: `Canal: ${message.channel.name}`}
+                    }
+                    logChannel.send({ embeds: [embed] }).catch(() => {})
+                }
+            }
         } catch(error) {
             console.error(error)
             message.reply('Houve um erro ao tentar executar esse comando!')
