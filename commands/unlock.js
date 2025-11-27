@@ -14,7 +14,7 @@ module.exports = {
             await channel.permissionOverwrites.edit(message.guild.roles.everyone, {
                 SendMessages: null
             })
-            message.channel.send('🔓 **Abri a porta!** \nPodem falar... estava me sentindo muito sozinha nesse silêncio 🥺')
+            message.channel.send('🔓 **Abri a porta!** Podem falar... estava me sentindo muito sozinha nesse silêncio 🥺')
         } catch (error) {
             console.error(error)
             message.reply('A chave quebrou na fechadura... não consigo abrir! 😭')

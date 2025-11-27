@@ -10,7 +10,7 @@ module.exports = {
         const embed = new EmbedBuilder()
             .setColor('#FF69B4')
             .setTitle('📖 Diário da Bela')
-            .setDescription(`Olha tudo que eu aprendi fazer por você... espero que goste 👉👈 \nUse **${PREFIX}** antes, tá?`)
+            .setDescription(`Olha tudo que eu aprendi fazer por você... espero que goste 💖 \nUse **${PREFIX}** antes, tá?`)
             .setThumbnail(message.client.user.displayAvatarURL())
             .setTimestamp()
             .setFooter({ text: `Faço tudo pelo(a) ${message.author.username} 🎀`, iconURL: message.author.displayAvatarURL() })
