@@ -2,7 +2,7 @@ const { PermissionsBitField } = require('discord.js')
 
 module.exports = {
     name: 'ban',
-    description: 'Bane um membro do servidor permanentemente. (Admin)',
+    description: 'Bane um membro (eu tava com medo).',
     async execute(message, args) {
         if (!message.member.permissions.has(PermissionsBitField.Flags.BanMembers)) {
             return message.reply('Ei... você não manda em mim assim... só gente importante pode 🥺 (Sem permissão)')

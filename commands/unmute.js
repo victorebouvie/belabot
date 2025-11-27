@@ -2,7 +2,7 @@ const { PermissionsBitField } = require('discord.js')
 
 module.exports = {
     name: 'unmute',
-    description: 'A chave quebrou na fechadura... não consigo abrir! 😭',
+    description: 'Deixa falar de novo (mas sem gritar).',
     async execute(message, args) {
         if (!message.member.permissions.has(PermissionsBitField.Flags.ModerateMembers)) {
             return message.reply('Shiuu... deixa ele de castigo mais um pouco! (Sem permissão 🎀)')
