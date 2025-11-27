@@ -16,7 +16,7 @@ module.exports = {
         if (!timeInput) return message.reply('⚠️ Informe o tempo. Ex: `!mute @usuario 5m` ou `1h`.')
 
         if (!member.moderatable) {
-            return message.reply('❌ Não consigo silenciar esse usuário (sou fraquinha 😭).')
+            return message.reply('❌ Não consigo silenciar esse usuário. Ele pode ter um cargo maior que o meu. (sou fraquinha 😭)')
         }
 
         let durationMs = 0
