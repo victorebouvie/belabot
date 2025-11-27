@@ -2,27 +2,27 @@ const { PermissionsBitField } = require('discord.js')
 
 module.exports = {
     name: 'unmute',
-    description: 'Remove o silêncio de um usuário. (Admin)',
+    description: 'A chave quebrou na fechadura... não consigo abrir! 😭',
     async execute(message, args) {
         if (!message.member.permissions.has(PermissionsBitField.Flags.ModerateMembers)) {
-            return message.reply('❌ Você não tem permissão para remover silêncio.')
+            return message.reply('Shiuu... deixa ele de castigo mais um pouco! (Sem permissão 🎀)')
         }
 
         const member = message.mentions.members.first()
-        const reason = args.slice(1).join(' ') || 'Removido por moderador'
+        const reason = args.slice(1).join(' ') || 'Fiquei com pena...'
 
-        if (!member) return message.reply('⚠️ Mencione o usuário. Ex: `!unmute @usuario`')
+        if (!member) return message.reply('Quem pode falar? Aponta pra ele... 👉👈 (Mencione alguém)')
 
         if (!member.isCommunicationDisabled()) {
-            return message.reply('⚠️ Esse usuário não está silênciado.')
+            return message.reply('Mas ele já tá falando... você não ouviu? Ele não cala a boca! 😒')
         }
 
         try {
             await member.timeout(null, reason)
-            message.channel.send(`🗣️ **${member.user.tag}** voltou a falar!`)
+            message.channel.send(`🗣️ **${member.user.tag}**, pode falar agora... \nMas fala baixo e me elogia, tá? 🥺✨`)
         } catch (error) {
             console.error(error)
-            message.reply('Erro ao remover o silêncio.')
+            message.reply('Tentei tirar o curativo da boca dele mas grudou... socorro 😭')
         }
     }
 }

@@ -2,40 +2,40 @@ const { PermissionsBitField } = require('discord.js')
 
 module.exports = {
     name: 'mute',
-    description: 'Silencia um usuario por um tempo determinado (Admin).',
+    description: 'Pede silêncio (com carinho).',
     async execute(message, args) {
         if (!message.member.permissions.has(PermissionsBitField.Flags.ModerateMembers)) {
-            return message.reply('❌ Você não tem permissão para silenciar membros.')
+            return message.reply('Shiuu... você não pode mandar ninguém calar a boca 🤫')
         }
 
         const member = message.mentions.members.first()
         const timeInput = args[1]
-        const reason = args.slice(2).join(' ') || 'Sem motivo especificado.'
+        const reason = args.slice(2).join(' ') || 'Falei pra ficar quieto...'
 
-        if (!member) return message.reply('⚠️ Mencione o usuário. Ex: `!mute @usuario 10m Spam`')
-        if (!timeInput) return message.reply('⚠️ Informe o tempo. Ex: `!mute @usuario 5m` ou `1h`.')
+        if (!member) return message.reply('Quem tá gritando? Me mostra... 👉👈 (Mencione alguém)')
+        if (!timeInput) return message.reply('Por quanto tempo? Ex: `!mute @chato 5m` (não demore muito tá? 🥺)')
 
         if (!member.moderatable) {
-            return message.reply('❌ Não consigo silenciar esse usuário. Ele pode ter um cargo maior que o meu. (sou fraquinha 😭)')
+            return message.reply('❌ Não consigo calar ele... ele grita muito alto! (Cargo maior que o meu 😭)')
         }
 
         let durationMs = 0
         const value = parseInt(timeInput)
 
-        if (isNaN(value)) return message.reply('⚠️ Tempo invalido.')
+        if (isNaN(value)) return message.reply('Isso não é um tempo... fala direito comigo 🎀')
         
         if (timeInput.toLowerCase().endsWith('h')) durationMs = value * 60 * 60 * 1000
         else if (timeInput.toLowerCase().endsWith('s')) durationMs = value * 1000
         else durationMs = value * 60 * 1000
 
-        if (durationMs > 2419200000) return message.reply('❌ O tempo maximo é de 28 dias.')
+        if (durationMs > 2419200000) return message.reply('28 dias é muito tempo sem fofocar... diminui isso? 👉👈')
 
         try {
             await member.timeout(durationMs, reason)
-            message.channel.send(`🤐 **${member.user.tag}** foi silenciado por **${timeInput}**. Motivo: *${reason}*`)
+            message.channel.send(`🤐 **${member.user.tag}**, fala baixo... minha cabeça dói 🤕 \n(Fica quietinho por **${timeInput}** tá?)`)
         } catch (error) {
             console.error(error)
-            message.reply('Houve um erro ao tentar silenciar.')
+            message.reply('Tentei colocar a mão na boca dele mas ele mordeu... deu erro 😭')
         }
     }
 }

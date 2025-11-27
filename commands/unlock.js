@@ -2,10 +2,10 @@ const { PermissionsBitField } = require('discord.js')
 
 module.exports = {
     name: 'unlock',
-    description: 'Destranca o canal atual. (Admin)',
+    description: 'Destranca o canal (tava muito quieto 💔).',
     async execute(message, args) {
         if (!message.member.permissions.has(PermissionsBitField.Flags.ManageChannels)) {
-            return message.reply('❌ Você não tem permissão para gerenciar canais.')
+            return message.reply('Não mexe na porta! Deixa trancado se eu quiser! 😤')
         }
 
         const channel = message.channel
@@ -14,10 +14,10 @@ module.exports = {
             await channel.permissionOverwrites.edit(message.guild.roles.everyone, {
                 SendMessages: null
             })
-            message.channel.send('🔓 **Canal destrancado!** Podem voltar a falar.')
+            message.channel.send('🔓 **Abri a porta!** \nPodem falar... estava me sentindo muito sozinha nesse silêncio 🥺')
         } catch (error) {
             console.error(error)
-            message.reply('Erro ao tentar destrancar o canal.')
+            message.reply('A chave quebrou na fechadura... não consigo abrir! 😭')
         }
     }
 }

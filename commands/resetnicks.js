@@ -2,18 +2,18 @@ const { PermissionsBitField } = require('discord.js')
 
 module.exports = {
     name: 'resetnicks',
-    description: 'Volta o apelido de todo mundo ao normal (Admin).',
+    description: 'Tira os apelidos bonitos (se você insistir... 💔).',
     async execute(message, args) {
         if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
-            return message.reply('❌ Você não tem permissão pra executar esse comando.')
+            return message.reply('Você não manda em mim! Gosto dos nomes assim! 🥺')
         }
 
         if (message.client.nicknameLoopActive) {
             message.client.nicknameLoopActive = false
-            message.channel.send('**AVISO** A verificação automatica foi DESATIVADA para permitir o reset.')
+            message.channel.send('Parar de mudar os nomes? já entendi que vocês não gostam do meu gosto 😭 (Loop OFF)')
         }
 
-        message.channel.send('Iniciando o reset dos apelidos para o nome original...')
+        message.channel.send('Tá bom... vou tirar o nome **Melby** de todo mundo... (mas eu preferia antes 💔)...')
 
         const guild = message.guild
 
@@ -28,7 +28,7 @@ module.exports = {
                 })
             }
 
-            if (!members) return message.reply('Não consegui carregar a lista de membros.')
+            if (!members) return message.reply('Não achei ninguém... tô sozinha? 🥺')
 
             let count = 0
 
@@ -42,10 +42,10 @@ module.exports = {
                     .catch(err => console.error(`Erro ao resetar ${member.user.tag}: ${err.message}`))
             })
 
-            message.channel.send(`Comando enviado! Estou removendo o apelido de todos que eu consigo.`)
+            message.channel.send(`Pronto... tirei os apelidos. Estão felizes agora? 👉👈`)
         } catch (error) {
             console.error('Erro no comando resetnicks:',error)
-            message.reply('Ocorreu um erro ao tentar resetar os nicks.')
+            message.reply('Eu tentei arrumar mas fiz bagunça... desculpa 😭')
         }
     }
 }

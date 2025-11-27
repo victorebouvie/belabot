@@ -2,14 +2,14 @@ const { PermissionsBitField } = require('discord.js');
 
 module.exports = {
     name: 'say',
-    description: 'Faz a Bela falar uma mensagem (Admin).',
+    description: 'Eu falo por você (mas tenho vergonha 👉👈).',
     async execute(message, args) {
         if (!message.member.permissions.has(PermissionsBitField.Flags.ManageMessages)) {
-            return message.reply('❌ Sem permissão.');
+            return message.reply('Não vou falar nada pra você! 😤');
         }
 
         const text = args.join(' ');
-        if (!text) return message.reply('O que você quer que eu diga?');
+        if (!text) return message.reply('Fala no meu ouvido o que é pra eu dizer... 👉👈 (Digite a mensagem)');
 
         try {
             await message.delete();

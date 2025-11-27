@@ -10,14 +10,15 @@ module.exports = {
 
         const embed = new EmbedBuilder()
             .setColor('#FF69B4')
-            .setTitle(`Avatar de ${target.username}`)
+            .setTitle(`🎀 Olha que coisinha linda...`)
+            .setDescription(`Aqui está a foto de **${target.username}**!`)
             .setImage(avatarUrl)
-            .setFooter({ text: 'Lindo(a)!' });
+            .setFooter({ text: 'Mas eu sou mais fofinha, né? 👉👈' });
 
         // Adiciona um botão/link para download
         message.channel.send({ 
-            content: `🔗 Link direto: <${avatarUrl}>`,
+            content: `Peguei a foto pra você! (Deu trabalho tá? 🥺)\n🔗 Link: <${avatarUrl}>`,
             embeds: [embed] 
-        });
+        })
     }
-};
+}

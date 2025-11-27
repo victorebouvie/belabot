@@ -2,32 +2,32 @@ const { PermissionsBitField } = require('discord.js');
 
 module.exports = {
     name: 'slowmode',
-    description: 'Define o modo lento do canal atual.',
+    description: 'Calma... vamos devagar (Modo Lento).',
     async execute(message, args) {
         if (!message.member.permissions.has(PermissionsBitField.Flags.ManageChannels)) {
-            return message.reply('❌ Sem permissão.');
+            return message.reply('Ei, não mexe nisso... deixa eles falarem! 🥺');
         }
 
         let time = args[0];
 
         if (time === undefined) {
-            return message.reply('⚠️ Informe o tempo em segundos. Use 0 para desligar. Ex: `!slowmode 5`');
+            return message.reply('Quanto tempo eu espero? Me fala... 👉👈 (Use 0 para desligar)');
         }
 
         time = parseInt(time);
-        if (isNaN(time)) return message.reply('⚠️ Por favor, use apenas números.');
-        if (time < 0 || time > 21600) return message.reply('⚠️ O tempo deve ser entre 0 e 21600 segundos (6 horas).');
+        if (isNaN(time)) return message.reply('Números, amor... usa números. 🎀');
+        if (time < 0 || time > 21600) return message.reply('Isso é tempo demais... eu vou dormir desse jeito 😴');
 
         try {
             await message.channel.setRateLimitPerUser(time);
             if (time === 0) {
-                message.channel.send('🐇 **Modo lento desativado!** O chat está voando!');
+                message.channel.send('🐇 **Podem falar rápido!** (Mas não gritem comigo tá? 🥺)');
             } else {
-                message.channel.send(`🐢 **Modo lento ativado!** Uma mensagem a cada **${time} segundos**.`);
+                message.channel.send(`🐢 **Vamos com calma...** vocês falam muito rápido, fico tonta! \n(Uma mensagem a cada **${time}s**)`);
             }
         } catch (error) {
             console.error(error);
-            message.reply('Erro ao configurar o modo lento.');
+            message.reply('Não consegui mexer no relógio... quebrou? 😭');
         }
     }
 };

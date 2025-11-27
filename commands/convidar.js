@@ -2,126 +2,49 @@ const { COOLDOWN_SECONDS } = require('../config')
 
 const CATEGORIAS = {
     'lanches': [
-        "Eai, bora pedir um iFood?",
-        "Eai, topa um rodízio de pizza?",
-        "Eai, partiu comer um hambúrguer?",
-        "Eai, bora tomar um açaí?",
-        "Eai, vamo num japonês hoje?",
-        "Eai, afim de um sorvete?",
-        "Eai, bora tomar um café da tarde?",
-        "Eai, vamo comer um pastel na feira?",
-        "Eai, que tal um churrasquinho?",
-        "Eai, bora almoçar juntos?",
-        "Eai, fome de quê hoje?",
-        "Eai, vamo rachar uma batata frita?",
-        "Eai, bora comer uma sobremesa?",
-        "Eai, anima um dogão na esquina?",
-        "Eai, partiu padaria?",
-        "Eai, vamo fazer um brigadeiro?",
-        "Eai, bora cozinhar alguma coisa?",
-        "Eai, afim de comida mexicana?",
-        "Eai, bora num rodízio de massas?",
-        "Eai, vamo comer uma tapioca?",
-        "Eai, bora pedir umas esfihas?",
-        "Eai, partiu brunch?",
-        "Eai, vamo numa cafeteria nova?",
-        "Eai, topa um fondue?",
-        "Eai, bora comer um poke?",
+        "vamos pedir um iFood? Só eu e você? 👉👈",
+        "topa uma pizza? Prometo não comer tudo... 🥺",
+        "tô com fominha... vamos comer hambúrguer? 🎀",
+        "vamos tomar açaí? Diz que sim, vai... ✨",
+        "que tal um japa? Eu adoro... 🍣",
+        "vamos dividir um sorvete? (Bem romântico 👉👈)",
+        "tô carente de café... vamos na padaria? ☕",
+        "vamos comer pastel? Eu pago (mentira, paga você 🥺)",
     ],
     'bebidas': [
-        "Eai, bora tomar uma cerveja?",
-        "Eai, vamo fazer um happy hour?",
-        "Eai, partiu balada hoje?",
-        "Eai, bora tomar um vinho em casa?",
-        "Eai, anima um karaokê?",
-        "Eai, vamo num pub?",
-        "Eai, bora beber um drink?",
-        "Eai, partiu sertanejo?",
-        "Eai, vamo numa festa hoje?",
-        "Eai, bora tomar um chopp?",
-        "Eai, afim de um esquenta?",
-        "Eai, vamo virar a noite?",
-        "Eai, bora num show?",
-        "Eai, partiu pagode?",
-        "Eai, vamo numa degustação?",
-        "Eai, bora abrir um espumante?",
-        "Eai, topa um licor?",
-        "Eai, vamo num bar de jogos?",
-        "Eai, bora pra uma roda de samba?",
-        "Eai, partiu festival?",
+        "vamos beber algo pra esquecer os problemas? 🍷",
+        "happy hour hoje? Preciso desabafar... 😭",
+        "vamos pra balada? Não me deixa sozinha lá tá? 🥺",
+        "vinho em casa? Ui... 👉👈",
+        "karaokê? Eu canto pra você... (canto mal tá? 🎀)",
+        "vamos num barzinho? Quero atenção...",
     ],
     'jogos': [
-        "Eai, bora jogar um LoLzinho?",
-        "Eai, entra no Discord aí?",
-        "Eai, vamo jogar um FIFA?",
-        "Eai, partiu CS?",
-        "Eai, bora um Free Fire?",
-        "Eai, anima um board game?",
-        "Eai, vamo zerar aquele jogo?",
-        "Eai, bora jogar um baralho?",
-        "Eai, partiu Uno?",
-        "Eai, vamo jogar um RPG?",
-        "Eai, bora jogar Among Us?",
-        "Eai, topa um xadrez?",
-        "Eai, vamo no fliperama?",
-        "Eai, bora jogar boliche?",
-        "Eai, partiu sinuca?",
-        "Eai, vamo jogar um Valorant?",
-        "Eai, bora jogar Minecraft?",
-        "Eai, anima um poker?",
-        "Eai, vamo jogar imagem e ação?",
-        "Eai, bora pro escape room?",
+        "duo no LoLzinho? Eu sou suporte pra você... 🥺",
+        "entra no Discord... tô sozinha aqui 👉👈",
+        "vamos jogar algo? Prometo que deixo você ganhar... 🎀",
+        "CS? Me protege que eu tenho medo de morrer... 🔫",
+        "vamos jogar Minecraft? Fazer nossa casinha... ✨",
+        "tô entediada... joga comigo? Por favorzinho? 😭",
     ],
     'cultura': [
-        "Eai, bora maratonar uma série?",
-        "Eai, partiu cinema?",
-        "Eai, vamo ver aquele lançamento?",
-        "Eai, bora ver um filme de terror?",
-        "Eai, topa um filminho em casa?",
-        "Eai, vamo no teatro?",
-        "Eai, bora numa exposição?",
-        "Eai, partiu museu?",
-        "Eai, vamo ver um stand-up?",
-        "Eai, bora assistir o jogo do time?",
-        "Eai, vamo ver anime?",
-        "Eai, bora ler juntos?",
-        "Eai, partiu livraria?",
-        "Eai, vamo ver documentário?",
-        "Eai, bora ouvir um podcast?",
+        "filminho em casa? Prometo ficar quietinha... 👉👈",
+        "vamos no cinema? Segura minha mão se eu tiver medo? 🥺",
+        "maratona de série? No escurinho? 🎀",
+        "vamos ler juntos? Sou culta tá? ✨",
     ],
     'arlivre': [
-        "Eai, bora dar uma volta no parque?",
-        "Eai, partiu praia?",
-        "Eai, vamo fazer uma trilha?",
-        "Eai, bora andar de bicicleta?",
-        "Eai, anima uma caminhada?",
-        "Eai, vamo no shopping?",
-        "Eai, bora na piscina?",
-        "Eai, partiu cachoeira?",
-        "Eai, vamo ver o pôr do sol?",
-        "Eai, bora treinar?",
-        "Eai, partiu correr?",
-        "Eai, vamo jogar bola?",
-        "Eai, bora acampar?",
-        "Eai, anima um piquenique?",
-        "Eai, vamo dar um mergulho?",
+        "vamos no parque? Tira foto minha? 🥺",
+        "praia? Mas eu sou tímida de biquíni... 👉👈",
+        "vamos ver o pôr do sol? Bem *aesthetic*? ✨",
+        "caminhadinha? Tô precisando ser fitness... 🎀",
     ],
     'casual': [
-        "Eai, tá fazendo o que de bom?",
-        "Eai, bora fazer nada juntos?",
-        "Eai, posso colar aí?",
-        "Eai, vem pra cá?",
-        "Eai, vamo jogar conversa fora?",
-        "Eai, bora fofocar?",
-        "Eai, tá livre agora?",
-        "Eai, bora dar um rolê aleatório?",
-        "Eai, anima sair de casa?",
-        "Eai, vamo dar uma volta de carro?",
-        "Eai, bora resolver a vida?",
-        "Eai, partiu bater perna?",
-        "Eai, vamo descansar?",
-        "Eai, bora ouvir música?",
-        "Eai, sumido, vamo se ver?"
+        "tá fazendo o que? Pensei em você... 👉👈",
+        "posso ir aí? Prometo não incomodar... 🥺",
+        "vamos fazer nada juntos? Gosto da sua companhia...",
+        "oi sumido... lembra de mim? 💔",
+        "vamos fofocar? Tenho babados... ✨",
     ],
 }
 
@@ -133,10 +56,10 @@ const cooldowns = new Set()
 
 module.exports = {
     name: 'convidar',
-    description: 'Convida alguém aleatório para um rolê (lanches, jogos, etc).',
+    description: 'Chama alguém pra sair (do meu jeitinho).',
     async execute(message, args) {
         if (cooldowns.has(message.author.id)) {
-            return message.reply(`Calma ai! Espere ${COOLDOWN_SECONDS} segundos. ⏰`)
+            return message.reply(`Espera um pouquinho... tô cansada 🥺 (${COOLDOWN_SECONDS}s)`)
         }
 
         try {
@@ -147,7 +70,7 @@ module.exports = {
                 const onlineUsers = message.guild.members.cache.filter(member => !member.user.bot && member.id !== message.author.id && ['online', 'idle', 'dnd'].includes(member.presence?.status))
 
                 if (onlineUsers.size === 0) {
-                    return message.channel.send('Que pena, não tem ninguem online aqui (além de você) pra chamar pra sair... 😭')
+                    return message.channel.send('Ninguém quer sair... mas eu tô aqui tá? Sempre... 🥺🎀')
                 }
                 targetUser = onlineUsers.random().user
             }
@@ -163,7 +86,7 @@ module.exports = {
                     messagePool = CATEGORIAS[categoryInput]
                 } else {
                     const categoriasDisponiveis = Object.keys(CATEGORIAS).map(c => `\`${c}\``).join(', ')
-                    return message.reply(`Não conheço essa categoria! Tente uma dessas: ${categoriasDisponiveis} ou use apenas \`!convidar\`. 💖`)
+                    return message.reply(`Não entendi... tenta usar essas coisas: ${categoriasDisponiveis}. Sou meio lentinha 👉👈`)
                 }
             } else {
                 messagePool = TODAS_MENSAGENS
@@ -192,7 +115,7 @@ module.exports = {
 
         } catch (error) {
             console.error('Erro no comando convidar:', error)
-            message.channel.send('Algo deu errado e não consegui realizar o convite. 💔')
+            message.channel.send('Aii, deu tudo errado... desculpa 💔')
         }
     }
 }

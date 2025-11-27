@@ -4,20 +4,20 @@ const { execute } = require('./lock')
 
 module.exports = {
     name: 'setlogs',
-    description: 'Define o canal onde logs serão enviadas. (Admin)',
+    description: 'Escolhe onde vou fofocar (Logs).',
     async execute(message, args) {
         if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
-            return message.reply('❌ Apenas administradores podem configurar os logs.')
+            return message.reply('Isso é coisa de admin... sai daqui curioso! 🎀')
         }
 
         const channel = message.mentions.channels.first()
 
         if (!channel) {
-            return message.reply('⚠️ Por favor, mencione um canal de texto. Ex: `!setlogs #logs`')
+            return message.reply('Onde eu escrevo? Aponta pra mim... 👉👈 Ex: `!setlogs #fofocas`')
         }
 
         setLogChannel(message.guild.id, channel.id)
 
-        message.reply(`✅ Configurado! Agora enviarei os relatórios no canal ${channel}.`)
+        message.reply(`✅ Amei! Vou contar **TUDO** que acontecer lá no ${channel}. Sou a melhor vigia né? ✨`)
     }
 }
