@@ -5,22 +5,21 @@ module.exports = {
     name: Events.MessageUpdate,
     async execute(oldMessage, newMessage, client) {
         if (oldMessage.author?.bot) return
+        if (oldMessage.content === newMessage.content) return
 
-        if (oldMessage.content === newMessage) return
-
-        const config = getGuildConfig(oldMessage.guild.id)
-        if (!config.logChannel) return
-
+        const config = await getGuildConfig(oldMessage.guild.id)
+        
+        if (!config || !config.logChannel) return
         const logChannel = client.channels.cache.get(config.logChannel)
         if (!logChannel) return
 
         const embed = new EmbedBuilder()
             .setColor('#ffa500')
-            .setTitle('✏️ Mensagem Editada')
-            .setDescription(`**Autor:** ${oldMessage.author}\n**Canal:** ${oldMessage.channel}`)
+            .setTitle('✏️ Mudou o que disse por quê?')
+            .setDescription(`**${oldMessage.author}** editou uma mensagem... suspeito 👀\n**Canal:** ${oldMessage.channel}`)
             .addFields(
-                { name: 'Antiga', value: oldMessage.content || '*Sem conteúdo*', inline: false},
-                { name: 'Nova', value: newMessage.content || '*Sem conteúdo*', inline: false},
+                { name: '❌ Antes', value: oldMessage.content || '*[Nada]*', inline: false},
+                { name: '✨ Depois', value: newMessage.content || '*[Nada]*', inline: false},
             )
             .setTimestamp()
             .setFooter({ text: `ID: ${oldMessage.id}` })

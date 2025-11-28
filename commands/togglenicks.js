@@ -1,4 +1,5 @@
 const { PermissionsBitField } = require('discord.js')
+const { getGuildConfig, setNicknameLoop } = require('../utils/db')
 
 module.exports = {
     name: 'togglenicks',
@@ -8,15 +9,23 @@ module.exports = {
             return message.reply('Ei! Não toca nos meus botões! 😤')
         }
 
-        const client = message.client
+        const guildId = message.guild.id
+        const config = await getGuildConfig(guildId)
+        const currentStatus = config ? config.nicknameLoopActive : false
+        const newStatus = !currentStatus
+        const success = await setNicknameLoop(guildId, newStatus)
 
-        client.nicknameLoopActive = !client.nicknameLoopActive
+        if (!success) {
+            return message.reply('Minha cabeça doeu... não consegui salvar essa configuração no banco. Desculpa 😭')
+        }
 
-        const status = client.nicknameLoopActive ? 'ATIVADA ✨' : 'DESATIVADA 💔'
-        const msg = client.nicknameLoopActive
+        message.client.nicknameLoopActive = newStatus
+
+        const status = newStatus ? 'ATIVADA ✨' : 'DESATIVADA 💔'
+        const msg = newStatus
             ? 'Oba! Vou transformar todo mundo em Melby pra sempre! 🥰'
             : 'Ah... tá bom. Parei de mexer nos nomes. 😒'
 
-        message.reply(`A verificação automatica de apelidos foi **${status}**.`)
+        message.reply(`A verificação automática foi **${status}**. \n${msg}`)
     }
 }

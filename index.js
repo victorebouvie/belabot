@@ -2,6 +2,7 @@ require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
 const { Client, GatewayIntentBits, Collection } = require('discord.js');
+const mongoose = require('mongoose')
 
 // Configuração do Cliente
 const client = new Client({
@@ -13,7 +14,18 @@ const client = new Client({
         GatewayIntentBits.GuildPresences,
         GatewayIntentBits.GuildVoiceStates,
     ]
-});
+})
+
+const mongoURL = process.env.MONGO_URL
+
+if (!mongoURL) {
+    console.error('não tem o link do banco de dados😭 cade ele no .env?')
+    process.exit(1)
+}
+
+mongoose.connect(mongoURL)
+    .then(() => console.log('Conectada ao mongo db! minha memoria esta perfeita'))
+    .catch((err) => console.error("não consegui conectar no banco"))
 
 //Command Handler
 client.commands = new Collection();

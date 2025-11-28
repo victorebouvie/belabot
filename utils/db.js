@@ -1,24 +1,44 @@
-const fs = require('fs')
-const path = require('path')
+const Guild = require('../models/guild')
 
-const dbPath = path.join(__dirname, '../databa.json')
-
-if (!fs.existsSync(dbPath)) {
-    fs.writeFileSync(dbPath, JSON.stringify({}))
+async function getGuildConfig(guildId) {
+    try {
+        let config = await Guild.findOne({ guildId: guildId })
+        if (!config) {
+            config = await Guild.create({ guildId: guildId })
+        }
+        return config
+    } catch (error) {
+        console.error(error)
+        return null
+    }
 }
 
-function getGuildConfig(guildId) {
-    const data = JSON.parse(fs.readFileSync(dbPath, 'utf8'))
-    return data[guildId] || {}
+async function setLogChannel(guildId, channelId) {
+    try {
+        await Guild.findOneAndUpdate(
+            { guildId: guildId },
+            { logChannel: channelId },
+            { upsert: true, new: true }
+        )
+        return true
+    } catch(error) {
+        console.error(error)
+        return false
+    }
 }
 
-function setLogChannel(guildId, channelId) {
-    const data = JSON.parse(fs.readFileSync(dbPath, 'utf8'))
-
-    if (!data[guildId]) data[guildId] = {}
-    data[guildId].logChannel = channelId
-
-    fs.writeFileSync(dbPath, JSON.stringify(data, null, 2))
+async function setNicknameLoop(guildId, status) {
+    try {
+        await Guild.findOneAndUpdate(
+            { guildId: guildId },
+            { nicknameLoopActive: status },
+            { upsert: true, new: true }
+        )
+        return true
+    } catch(error) {
+        console.error(error)
+        return false
+    }
 }
 
-module.exports = { getGuildConfig, setLogChannel }
+module.exports = { getGuildConfig, setLogChannel, setNicknameLoop }

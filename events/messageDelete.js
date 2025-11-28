@@ -1,30 +1,34 @@
 const { EmbedBuilder, Events, AuditLogEvent } = require('discord.js')
-const { LOG_CHANNEL_ID, getGuildConfig } = require('../utils/db')
+const { getGuildConfig } = require('../utils/db')
 
 module.exports = {
     name: Events.MessageDelete,
     async execute(message, client) {
-        if (message.author?.bot) return
+        if (!message.guild || message.author?.bot) return
 
-        const config = getGuildConfig(message.guild.id)
-        const logChannelId = config.logChannel
+        try {
+            const config = await getGuildConfig(message.guild.id)
 
-        if (!logChannelId) return
+            if (!config || !config.logChannel) return
+            const logChannel= client.channels.cache.get(config.logChannel)
+            if (!logChannel) return
 
-        const logChannel = client.channels.cache.get(logChannelId)
-        if (!logChannel) return
+            const embed = new EmbedBuilder()
+                .setColor('#FF0000')
+                .setTitle('🗑️ Vi o que você apagou hein... 👀')
+                .setDescription('Tentou esconder, mas eu sou mais rápida!')
+                .addFields(
+                    { name: '👤 Quem apagou', value: `${message.author ? message.author.tag : 'Alguém misterioso (não estava no cache)'}`, inline: true},
+                    { name: '📍 Onde', value: `${message.channel}`, inline: true},
+                    { name: '📝 Conteúdo', value: message.content || '*[Era uma imagem ou algo que não consigo ler 😭]*'}
+                )
+                .setTimestamp()
+                .setFooter({ text: `ID: ${message.author ? message.author.id : '?'}`})
 
-        const embed = new EmbedBuilder()
-            .setColor('#FF0000')
-            .setTitle('🗑️ Mensagem Apagada')
-            .addFields(
-                { name: 'Autor', value: `${message.author ? message.author.tag : 'Desconhecido'}`, inline: true},
-                { name: 'Canal', value: `${message.channel}`, inline: true},
-                { name: 'Conteúdo', value: message.content || '*[Imagem ou Embed]*'}
-            )
-            .setTimestamp()
-            .setFooter({ text: `ID: ${message.author ? message.author.id : '?'}`})
-
-        logChannel.send({ embeds: [embed] }).catch(() => {})
+            // Envia e avisa no console se der erro de permissão
+            await logChannel.send({ embeds: [embed] })
+        } catch (error) {
+            console.error('Erro ao tentar logar mensagem deletada:', error)
+        }
     }
 }

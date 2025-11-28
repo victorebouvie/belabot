@@ -6,9 +6,9 @@ module.exports = {
     async execute(oldMember, newMember) {
         if (oldMember.nickname === newMember.nickname) return
 
-        const config = getGuildConfig(newMember.guild.id)
-        if (!config.logChannel) return
-
+        const config = await getGuildConfig(newMember.guild.id)
+        
+        if (!config || !config.logChannel) return
         const logChannel = newMember.client.channels.cache.get(config.logChannel)
         if (!logChannel) return
 
@@ -17,11 +17,11 @@ module.exports = {
 
         const embed = new EmbedBuilder()
             .setColor('#0000FF')
-            .setTitle('🏷️ Apelido alterado')
-            .setDescription(`**${newMember.user.tag}** mudou de apelido.`)
+            .setTitle('💅 Mudança de Visual (Nick)')
+            .setDescription(`**${newMember.user.tag}** trocou de nome. O que achou?`)
             .addFields(
-                { name: 'Antigo', value: `\`${oldNick}\``, inline: true},
-                { name: 'Novo', value: `\`${newNick}\``, inline: true}
+                { name: '❌ Antes era', value: `\`${oldNick}\``, inline: true},
+                { name: '✨ Agora é', value: `\`${newNick}\``, inline: true}
             )
             .setTimestamp()
 
