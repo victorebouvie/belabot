@@ -19,17 +19,17 @@ module.exports = {
         if (!oldState.channelId && newState.channelId) {
             embed.setColor('#00FF00')
                 .setTitle('🔊 Entrou na Call')
-                .setDescription(`**${member.user.tag}** entrou em **${newState.channel.name}**.\n(Posso ir junto? 👉👈)`);
+                .setDescription(`**${member.user.tag}** entrou em **${newState.channel.name}**.\n(Posso ir junto? 👉👈)`)
         }
         else if (oldState.channelId && !newState.channelId) {
             embed.setColor('#FF0000')
                 .setTitle('🔇 Saiu da Call')
-                .setDescription(`**${member.user.tag}** saiu de **${oldState.channel.name}**.\n(O silêncio voltou... 🥺)`);
+                .setDescription(`**${member.user.tag}** saiu de **${oldState.channel.name}**.\n(O silêncio voltou... 🥺)`)
         }
         else if (oldState.channelId && newState.channelId && oldState.channelId !== newState.channelId) {
             embed.setColor('#FFFF00')
                 .setTitle('🔄 Trocou de Sala')
-                .setDescription(`**${member.user.tag}** foi de **${oldState.channel.name}** para **${newState.channel.name}**.`);
+                .setDescription(`**${member.user.tag}** foi de **${oldState.channel.name}** para **${newState.channel.name}**.`)
         } else {
             return; 
         }

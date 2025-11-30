@@ -1,5 +1,5 @@
-const { Events, EmbedBuilder } = require('discord.js');
-const { getGuildConfig } = require('../utils/db');
+const { Events, EmbedBuilder } = require('discord.js')
+const { getGuildConfig } = require('../utils/db')
 
 module.exports = {
     name: Events.GuildMemberRemove,
@@ -8,7 +8,7 @@ module.exports = {
         
         if (!config || !config.logChannel) return;
         const logChannel = member.client.channels.cache.get(config.logChannel);
-        if (!logChannel) return;
+        if (!logChannel) return
 
         const embed = new EmbedBuilder()
             .setColor('#FF0000')
@@ -16,8 +16,8 @@ module.exports = {
             .setThumbnail(member.user.displayAvatarURL())
             .setDescription(`**${member.user.tag}** saiu do servidor. \nEspero que não volte... (mentira, volta sim 😭)`)
             .setFooter({ text: `ID do traidor: ${member.id}` })
-            .setTimestamp();
+            .setTimestamp()
 
-        logChannel.send({ embeds: [embed] }).catch(() => {});
+        logChannel.send({ embeds: [embed] }).catch(() => {})
     }
 }

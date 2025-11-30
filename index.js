@@ -1,7 +1,7 @@
-require('dotenv').config();
-const fs = require('fs');
-const path = require('path');
-const { Client, GatewayIntentBits, Collection } = require('discord.js');
+require('dotenv').config()
+const fs = require('fs')
+const path = require('path')
+const { Client, GatewayIntentBits, Collection } = require('discord.js')
 const mongoose = require('mongoose')
 
 // Configuração do Cliente
@@ -29,8 +29,8 @@ mongoose.connect(mongoURL)
 
 //Command Handler
 client.commands = new Collection();
-const commandsPath = path.join(__dirname, 'commands');
-const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+const commandsPath = path.join(__dirname, 'commands')
+const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'))
 
 for (const file of commandFiles) {
     const filePath = path.join(commandsPath, file);
@@ -38,23 +38,23 @@ for (const file of commandFiles) {
     if ('name' in command && 'execute' in command) {
         client.commands.set(command.name, command);
     } else {
-        console.log(`[AVISO] O comando em ${filePath} está faltando 'name' ou 'execute'.`);
+        console.log(`[AVISO] O comando em ${filePath} está faltando 'name' ou 'execute'.`)
     }
 }
 
 //Event Handler
-const eventsPath = path.join(__dirname, 'events');
-const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
+const eventsPath = path.join(__dirname, 'events')
+const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'))
 
 for (const file of eventFiles) {
     const filePath = path.join(eventsPath, file);
     const event = require(filePath);
     if (event.once) {
-        client.once(event.name, (...args) => event.execute(...args, client));
+        client.once(event.name, (...args) => event.execute(...args, client))
     } else {
-        client.on(event.name, (...args) => event.execute(...args, client));
+        client.on(event.name, (...args) => event.execute(...args, client))
     }
 }
 
 // Login
-client.login(process.env.DISCORD_TOKEN);
+client.login(process.env.DISCORD_TOKEN)
