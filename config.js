@@ -2,7 +2,13 @@ module.exports = {
     GUILD_ID: '1136378782366834818',
     NICKNAME: 'Melby',
     PREFIX: '!',
+
     CHECK_INTERVAL: 10 * 60 * 1000, // 10 Minutos
     COOLDOWN_SECONDS: 5,
     LOG_CHANNEL_ID: '1443293775173783622',
+
+    XP_COOLDOWN: 5,
+    XP_PER_MESSAGE: 15,
+    XP_DIFFICULTY: 100,
+    API_PORT: 3000,
 }
