@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Da Bela 🎀</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <!-- Loader Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="spinner"></div>
+        <p>Pedindo permissão pro MongoDB... 🥺</p>
+    </div>
+
+    <nav class="sidebar">
+        <div class="logo">
+            <img src="https://i.imgur.com/AobuOcq.jpeg" alt="Bela Logo">
+            <h2>Bela 🎀</h2>
+        </div>
+        <ul>
+            <li class="active" onclick="switchTab('rank')"><i class="fas fa-trophy"></i> Ranking</li>
+            <li onclick="switchTab('editor')"><i class="fas fa-id-card"></i> Meu Card</li>
+            <li onclick="switchTab('commands')"><i class="fas fa-book"></i> Comandos</li>
+        </ul>
+        
+        <div id="user-logged-in" class="user-profile-mini" style="display: none;">
+            <img id="current-user-avatar" src="" alt="User">
+            <span id="current-user-name">...</span>
+            <i class="fas fa-sign-out-alt logout-icon" onclick="logout()" title="Sair"></i>
+        </div>
+
+        <div id="user-logged-out" class="login-btn-area">
+            <a href="/api/auth/login" class="discord-login-btn">
+                <i class="fab fa-discord"></i> Entrar
+            </a>
+        </div>
+    </nav>
+
+    <main class="content">
+        <button id="menu-toggle" class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Ranking -->
+        <section id="tab-rank" class="tab-content active">
+            <header>
+                <h1>Quem me ama mais? 🥺</h1>
+                <p>O top 3 ganha meu coração (mentira, sou só do Dono)</p>
+            </header>
+            <div id="leaderboard-list">
+                <!-- Preenchido via JS -->
+            </div>
+        </section>
+
+        <!-- Editor de card -->
+        <section id="tab-editor" class="tab-content" style="display: none;">
+            <header>
+                <h1>Personalizar Card De Nível ✨</h1>
+                <p>Deixe seu card bonitinho pra eu não chorar.</p>
+            </header>
+
+            <div class="editor-container">
+                <div class="card-preview-area">
+                    <h3>Visualização em Tempo Real:</h3>
+                    <div class="rank-card" id="rankCard">
+                        <div class="card-bg"></div>
+                        <div class="card-overlay"></div>
+
+                        <div class="card-data">
+                            <img id="card-preview-avatar" src="" class="card-avatar">
+                            <div class="card-text">
+                                <span id="card-preview-name" class="card-username">...</span>
+                                <span class="card-rank">RANK #?</span>
+                            </div>
+                            <div class="card-xp-info">
+                                <span id="card-preview-lvl">Level 0</span>
+                                <span id="card-preview-xp">0 / 0 XP</span>
+                            </div>
+                            <div class="card-progress-bg">
+                                <div class="card-progress-fill" id="previewBar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="editor-controls">
+                    <div class="input-group">
+                        <label>URL da imagem de fundo:</label>
+                        <input type="text" id="bgInput" placeholder="https://..." oninput="updateCard()">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Cor da Barra de XP:</label>
+                        <input type="color" id="colorInput" value="#FF69B4" oninput="updateCard()">
+                    </div>
+
+                    <button class="save-btn" onclick="savePreferences()">Salvar alterações (Pfvr funcione) 👉👈</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comandos -->
+        <section id="tab-commands" class="tab-content" style="display: none;">
+            <header>
+                <h1>Meus Comandos 📃</h1>
+                <p>Não grita comigo se der erro...</p>
+            </header>
+
+            <div class="commands-grid" id="commands-list">
+                <div class="cmd-card">
+                    <h3>/melbyall</h3>
+                    <p>Muda o nome de TODO MUNDO pra Melby.</p>
+                    <span class="tag admin">Perigoso</span>
+                </div>
+                <div class="cmd-card">
+                    <h3>/lock</h3>
+                    <p>Tranca o chat porque estou com medo.</p>
+                    <span class="tag mod">Moderação</span>
+                </div>
+                <div class="cmd-card">
+                    <h3>/rank</h3>
+                    <p>Mostra aquele card lindo que você editou.</p>
+                    <span class="tag social">Social</span>
+                </div>
+                <div class="cmd-card">
+                    <h3>/convidar</h3>
+                    <p>Eu convido alguem para sair.</p>
+                    <span class="tag fun">Fun</span>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

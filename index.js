@@ -8,6 +8,7 @@ const express = require('express')
 const cors = require('cors')
 const { API_PORT, XP_DIFFICULTY } = require('./config')
 const { getLeaderboard, getUserRankCard, updateUserPreferences } = require('./utils/db')
+const axios = require('axios')
 
 // Configuração do Cliente
 const client = new Client({
@@ -65,6 +66,8 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
+app.use(express.static('public'))
+
 // Rota 1
 app.get('/api/leaderboard', async (req, res) => {
     const data = await getLeaderboard(10)
@@ -108,6 +111,48 @@ app.post('/api/user/:id/card', async (req, res) => {
 // Inicia a api
 app.listen(API_PORT, () => {
     console.log(`Painel da bela rodando na porta ${API_PORT}`)
+})
+
+app.get('/api/auth/login', (req, res) => {
+    const redirectUri = encodeURIComponent(process.env.REDIRECT_URI)
+    const clientId = process.env.CLIENT_ID
+    const url = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=identify`
+    res.redirect(url)
+})
+
+app.get('/api/auth/discord/callback', async (req, res) => {
+    const { code } = req.query
+
+    if (!code) return res.send('Faltou o código... o Discord não mandou nada? 😭')
+
+    try {
+        const tokenResponse = await axios.post(
+            'https://discord.com/api/oauth2/token',
+            new URLSearchParams ({
+                client_id: process.env.client_id,
+                client_secret: process.env.CLIENT_SECRET,
+                code,
+                grant_type: 'authorization_code',
+                redirect_uri: process.env.REDIRECT_URI,
+                scope: 'identify',
+            }),
+            { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
+        )
+
+        const accessToken = tokenResponse.data.access_token
+
+        const userResponse = await axios.get('https://discord.com/api/users/@me', {
+            headers: { Authorization: `Bearer ${accessToken}` }
+        })
+
+        const userData = userResponse.data
+
+        const GITHUB_PAGES_URL = 'https://victorebouvie.github.io/dashboard-bela'
+        res.redirect(`${GITHUB_PAGES_URL}?id=${userData.id}`)
+    } catch (error) {
+        console.error('Erro no login:', error.response?.data || error.message)
+        res.send('A Bela tropeçou no cabo de internet e o login falhou... 🥺 Tenta denovo?')
+    }
 })
 
 // Login
